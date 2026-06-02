@@ -109,10 +109,11 @@ function Portfolio() {
   const rzSY = useSpring(rzY, { stiffness: 200, damping: 15 });
 
   const makeMagneticHandlers = (
-    btnRef: React.RefObject<HTMLAnchorElement>,
+    btnRef: React.RefObject<HTMLAnchorElement | null>,
     mx: ReturnType<typeof useMotionValue>,
     my: ReturnType<typeof useMotionValue>,
   ) => ({
+
     onMouseMove: (e: React.MouseEvent) => {
       if (!btnRef.current) return;
       const rect = btnRef.current.getBoundingClientRect();
