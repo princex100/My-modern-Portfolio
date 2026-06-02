@@ -20,12 +20,26 @@ export const Route = createFileRoute("/")({
 });
 
 const SKILLS = [
-  { name: "React", level: 90 },
-  { name: "JavaScript", level: 85 },
-  { name: "Node.js", level: 75 },
-  { name: "MongoDB", level: 80 },
-  { name: "Appwrite", level: 70 },
-  { name: "Tailwind CSS", level: 95 },
+  { name: "C++", level: 85 },
+  { name: "JavaScript", level: 90 },
+  { name: "HTML5", level: 90 },
+  { name: "CSS3", level: 88 },
+  { name: "React.js", level: 88 },
+  { name: "Redux Toolkit", level: 82 },
+  { name: "Tailwind CSS", level: 90 },
+  { name: "Node.js", level: 85 },
+  { name: "Express.js", level: 85 },
+  { name: "Appwrite", level: 80 },
+  { name: "MongoDB", level: 91 },
+  { name: "MySQL", level: 40 },
+  { name: "Git/GitHub", level: 85 },
+  { name: "Postman", level: 88 },
+  { name: "JWT", level: 80 },
+  { name: "REST APIs", level: 88 },
+  { name: "OAuth", level: 82 },
+  { name: "DSA", level: 85 },
+  { name: "OOP", level: 88 },
+  { name: "DBMS", level: 85 },
 ];
 
 const PROJECTS = [
@@ -34,21 +48,21 @@ const PROJECTS = [
     desc: "A scalable online blogging application where people can create their personal blogs.",
     tech: ["React", "Node.js", "MongoDB", "Tailwind"],
     link: "https://write-hub-your-writing-space.vercel.app/",
-    year: "2024",
+    year: "11/2025",
   },
   {
     title: "SuperCare",
     desc: "Exceptional care for discerning patients. Modern healthcare web application providing concierge medical team services.",
     tech: ["React", "Tailwind CSS"],
     link: "https://super-care-multispeciality-hospital-one.vercel.app/",
-    year: "2024",
+    year: "2/2026",
   },
   {
-    title: "FinTech Dashboard",
-    desc: "Interactive financial dashboard with real-time charts and data visualization.",
-    tech: ["React", "Chart.js", "Tailwind"],
+    title: "CampusFlow-placement portal",
+    desc: "An upcoming project to streamline the placement process. Stay tuned!",
+    tech: ["Coming Soon"],
     link: "#",
-    year: "2025",
+    year: "5/2026",
   },
 ];
 
@@ -59,41 +73,61 @@ const CONTACTS = [
   { name: "Call", link: "tel:+916397345571" },
 ];
 
-const MARQUEE_ITEMS = ["React", "TypeScript", "Node.js", "MongoDB", "Tailwind", "Next.js", "Appwrite", "Framer Motion"];
+const MARQUEE_ITEMS = [
+  "C++", "JavaScript", "HTML5", "CSS3",
+  "React.js", "Redux Toolkit", "Tailwind CSS",
+  "Node.js", "Express.js", "Appwrite",
+  "MongoDB", "MySQL", "Git/GitHub", "Postman", "JWT", "REST APIs", "OAuth",
+  "DSA", "OOP", "DBMS"
+];
 
 const NAV_ITEMS = ["About", "Skills", "Projects", "Contact"];
 
 const STATS = [
-  { num: "20+", label: "Projects shipped" },
-  { num: "3+", label: "Years coding" },
-  { num: "∞", label: "Cups of chai" },
+  { num: "2", label: "Projects deployed" },
+  { num: "1", label: "Project ongoing" },
+  { num: "2+", label: "Years coding exp." },
 ];
 
 function Portfolio() {
+  // Ensure the page always starts at the top when landing/reloading
+  useEffect(() => {
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+  }, []);
+
   /* ---------- Hero parallax + typewriter ---------- */
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroY = useTransform(scrollYProgress, [0, 1], [0, 200]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
+  const TITLES = ["Frontend Developer", "Backend Developer", "Problem Solver", "Full Stack Developer"];
+  const [titleIndex, setTitleIndex] = useState(0);
   const [nameText, setNameText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
-  const fullName = "Prince Sharma";
 
   useEffect(() => {
+    const currentTitle = TITLES[titleIndex];
     let timer: ReturnType<typeof setTimeout>;
-    if (!isDeleting && nameText === fullName) {
+    
+    if (!isDeleting && nameText === currentTitle) {
       timer = setTimeout(() => setIsDeleting(true), 2000);
     } else if (isDeleting && nameText === "") {
-      timer = setTimeout(() => setIsDeleting(false), 500);
+      timer = setTimeout(() => {
+        setIsDeleting(false);
+        setTitleIndex((prev) => (prev + 1) % TITLES.length);
+      }, 500);
     } else {
       const next = isDeleting
-        ? fullName.substring(0, nameText.length - 1)
-        : fullName.substring(0, nameText.length + 1);
-      timer = setTimeout(() => setNameText(next), isDeleting ? 70 : 130);
+        ? currentTitle.substring(0, nameText.length - 1)
+        : currentTitle.substring(0, nameText.length + 1);
+      timer = setTimeout(() => setNameText(next), isDeleting ? 40 : 80);
     }
     return () => clearTimeout(timer);
-  }, [nameText, isDeleting]);
+  }, [nameText, isDeleting, titleIndex]);
 
   /* ---------- Hero CTA magnetic buttons ---------- */
   const ghBtnRef = useRef<HTMLAnchorElement>(null);
@@ -261,7 +295,9 @@ function Portfolio() {
               </motion.a>
               <motion.a
                 ref={rzBtnRef}
-                href="#contact"
+                href="https://drive.google.com/file/d/1CB87_5yYud-mK2mfXdlFrYPQudzbQdRE/view"
+                target="_blank"
+                rel="noreferrer"
                 style={{ x: rzSX, y: rzSY }}
                 {...rzHandlers}
                 className="relative inline-flex items-center gap-2 px-7 py-4 rounded-full font-mono text-xs uppercase tracking-widest border border-border bg-surface/40 backdrop-blur hover:bg-surface transition-colors"
@@ -290,26 +326,13 @@ function Portfolio() {
               </div>
 
               <div className="relative w-full h-full rounded-3xl overflow-hidden border-2 border-primary/40 bg-surface group">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-accent/20" />
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6">
-                  <div className="w-20 h-20 rounded-full border-2 border-dashed border-primary/60 flex items-center justify-center mb-4">
-                    <span className="font-mono text-2xl text-primary">+</span>
-                  </div>
-                  <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">Your photo here</p>
-                  <p className="font-mono text-[10px] text-muted-foreground/60 mt-2">/assets/prince.jpeg</p>
-                </div>
-                <div className="absolute top-4 left-4 font-mono text-[10px] uppercase tracking-widest text-foreground/80">● REC</div>
-                <div className="absolute bottom-4 right-4 font-mono text-[10px] uppercase tracking-widest text-foreground/80">26°N · IND</div>
+                <img src="/assets/prince.jpeg" alt="Prince" className="absolute inset-0 w-full h-full object-cover z-10" />
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-accent/20 z-20 mix-blend-overlay" />
+                
+                <div className="absolute top-4 left-4 font-mono text-[10px] uppercase tracking-widest text-foreground/80 z-20 bg-background/50 backdrop-blur px-2 py-1 rounded">● REC</div>
+                <div className="absolute bottom-4 right-4 font-mono text-[10px] uppercase tracking-widest text-foreground/80 z-20 bg-background/50 backdrop-blur px-2 py-1 rounded">26°N · IND</div>
               </div>
 
-              <motion.div
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 4, repeat: Infinity }}
-                className="absolute -bottom-6 -left-6 px-4 py-3 rounded-2xl bg-primary text-primary-foreground font-mono text-xs uppercase tracking-wider shadow-2xl"
-              >
-                <div className="text-[10px] opacity-70">Currently</div>
-                <div className="font-bold">Building cool sh*t</div>
-              </motion.div>
             </div>
           </motion.div>
         </motion.div>
@@ -356,7 +379,7 @@ function Portfolio() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-lg text-muted-foreground leading-relaxed max-w-2xl"
             >
-              I'm a passionate software developer dedicated to building elegant, high-performance web applications. With a strong eye for design and a focus on writing clean, scalable code, I transform complex problems into intuitive digital experiences. When I'm not coding, I'm exploring new technologies and refining my craft.
+              I'm an Information Technology undergraduate at JSS Academy of Technical Education, passionate about building full-stack web applications. With a strong foundation in Data Structures, Algorithms, and the MERN stack, I focus on engineering secure, scalable solutions with elegant designs. When I'm not developing, I'm actively solving competitive programming problems on platforms like LeetCode.
             </motion.p>
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6 pt-8 border-t border-border">
@@ -388,29 +411,29 @@ function Portfolio() {
                 transition={{ duration: 0.8 }}
                 className="font-display font-bold text-4xl md:text-6xl tracking-tight"
               >
-                The toolkit.
+                My skills.
               </motion.h2>
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
             {SKILLS.map((skill, i) => (
               <motion.div
                 key={skill.name}
                 initial={{ opacity: 0, y: 30 }}
                 animate={skillsInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: i * 0.08, duration: 0.6 }}
-                className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 hover:border-primary transition-colors"
+                transition={{ delay: i * 0.04, duration: 0.6 }}
+                className="group relative overflow-hidden rounded-xl border border-border bg-card p-4 hover:border-primary transition-colors"
               >
-                <div className="flex items-baseline justify-between mb-4">
-                  <h3 className="font-display font-bold text-2xl">{skill.name}</h3>
-                  <span className="font-mono text-xs text-muted-foreground">{skill.level}%</span>
+                <div className="flex items-baseline justify-between mb-3">
+                  <h3 className="font-display font-bold text-base md:text-lg">{skill.name}</h3>
+                  <span className="font-mono text-[10px] text-muted-foreground">{skill.level}%</span>
                 </div>
                 <div className="h-1 bg-muted rounded-full overflow-hidden">
                   <motion.div
                     initial={{ width: 0 }}
                     animate={skillsInView ? { width: `${skill.level}%` } : {}}
-                    transition={{ duration: 1.2, delay: 0.3 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 1.2, delay: 0.3 + i * 0.04, ease: [0.22, 1, 0.36, 1] }}
                     className="h-full bg-primary"
                   />
                 </div>
@@ -433,7 +456,7 @@ function Portfolio() {
                 transition={{ duration: 0.8 }}
                 className="font-display font-bold text-4xl md:text-6xl tracking-tight"
               >
-                Selected <span className="text-primary italic">work.</span>
+                My <span className="text-primary italic">projects.</span>
               </motion.h2>
             </div>
           </div>
@@ -454,7 +477,7 @@ function Portfolio() {
               >
                 <div className="grid md:grid-cols-12 gap-6 p-6 md:p-10 items-center">
                   <div className="md:col-span-2 font-mono text-xs uppercase tracking-widest text-muted-foreground">
-                    0{i + 1} / {p.year}
+                    {p.year}
                   </div>
                   <div className="md:col-span-6 space-y-3">
                     <h3 className="font-display font-bold text-3xl md:text-5xl tracking-tight group-hover:text-primary transition-colors">
@@ -469,7 +492,7 @@ function Portfolio() {
                   </div>
                   <div className="md:col-span-4 flex md:justify-end">
                     <motion.div
-                      animate={{ rotate: hoveredProject === i ? 45 : 0, scale: hoveredProject === i ? 1.1 : 1 }}
+                      animate={{ rotate: hoveredProject === i ? -45 : 0, scale: hoveredProject === i ? 1.1 : 1 }}
                       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                       className="w-16 h-16 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-2xl"
                     >
@@ -533,7 +556,7 @@ function Portfolio() {
       <footer className="px-6 md:px-12 py-10 border-t border-border">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 font-mono text-xs uppercase tracking-widest text-muted-foreground">
           <div>© {new Date().getFullYear()} Prince Sharma</div>
-          <div>Designed & built with React + Framer Motion</div>
+          <div>Designed & built with React</div>
           <a href="#top" className="hover:text-primary transition">Back to top ↑</a>
         </div>
       </footer>
