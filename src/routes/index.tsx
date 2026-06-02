@@ -486,7 +486,7 @@ function Portfolio() {
                     <p className="text-muted-foreground max-w-lg">{p.desc}</p>
                     <div className="flex flex-wrap gap-2 pt-2">
                       {p.tech.map((t) => (
-                        <span key={t} className="px-3 py-1 rounded-full border border-border text-xs font-mono">{t}</span>
+                        <span key={t} className={`px-3 py-1 rounded-full border text-xs font-mono ${t === "Coming Soon" ? "bg-primary text-primary-foreground border-primary animate-pulse font-bold" : "border-border"}`}>{t}</span>
                       ))}
                     </div>
                   </div>
