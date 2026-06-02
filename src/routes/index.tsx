@@ -110,8 +110,9 @@ function Portfolio() {
 
   const makeMagneticHandlers = (
     btnRef: React.RefObject<HTMLAnchorElement | null>,
-    mx: ReturnType<typeof useMotionValue>,
-    my: ReturnType<typeof useMotionValue>,
+    mx: ReturnType<typeof useMotionValue<number>>,
+    my: ReturnType<typeof useMotionValue<number>>,
+
   ) => ({
 
     onMouseMove: (e: React.MouseEvent) => {
