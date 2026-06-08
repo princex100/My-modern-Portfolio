@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform, useInView, useMotionValue, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform, useInView, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -90,6 +91,8 @@ const STATS = [
 ];
 
 function Portfolio() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   // Ensure the page always starts at the top when landing/reloading
   useEffect(() => {
     if ('scrollRestoration' in history) {
@@ -218,6 +221,8 @@ function Portfolio() {
           <a href="#top" className="font-display font-bold text-xl tracking-tight">
             PRINCE<span className="text-primary">.</span>
           </a>
+          
+          {/* Desktop Nav */}
           <ul className="hidden md:flex items-center gap-8 font-mono text-xs uppercase tracking-widest">
             {NAV_ITEMS.map((item) => (
               <li key={item}>
@@ -228,13 +233,79 @@ function Portfolio() {
               </li>
             ))}
           </ul>
-          <a
-            href="#contact"
-            className="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-primary-foreground font-mono text-xs uppercase tracking-wider hover:scale-105 transition"
+          <div className="hidden md:flex items-center">
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-primary-foreground font-mono text-xs uppercase tracking-wider hover:scale-105 transition"
+            >
+              Let's Talk →
+            </a>
+          </div>
+
+          {/* Mobile Menu Toggle */}
+          <button
+            className="md:hidden text-foreground focus:outline-none"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
-            Let's Talk →
-          </a>
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
+
+        {/* Mobile Nav Dropdown */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden mt-4 overflow-hidden"
+            >
+              <ul className="flex flex-col gap-4 font-mono text-sm uppercase tracking-widest pb-4">
+                <li>
+                  <a
+                    href="#top"
+                    className="block hover:text-primary transition-colors"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsMobileMenuOpen(false);
+                      setTimeout(() => document.getElementById('top')?.scrollIntoView({ behavior: 'smooth' }), 100);
+                    }}
+                  >
+                    Home
+                  </a>
+                </li>
+                {NAV_ITEMS.map((item) => (
+                  <li key={item}>
+                    <a
+                      href={`#${item.toLowerCase()}`}
+                      className="block hover:text-primary transition-colors"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setIsMobileMenuOpen(false);
+                        setTimeout(() => document.getElementById(item.toLowerCase())?.scrollIntoView({ behavior: 'smooth' }), 100);
+                      }}
+                    >
+                      {item}
+                    </a>
+                  </li>
+                ))}
+                <li>
+                  <a
+                    href="#contact"
+                    className="inline-flex items-center gap-2 px-4 py-2 mt-2 rounded-full bg-primary text-primary-foreground font-mono text-xs uppercase tracking-wider hover:scale-105 transition"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsMobileMenuOpen(false);
+                      setTimeout(() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }), 100);
+                    }}
+                  >
+                    Let's Talk →
+                  </a>
+                </li>
+              </ul>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.nav>
 
       {/* ============ HERO ============ */}
