@@ -366,7 +366,7 @@ function Portfolio() {
               </motion.a>
               <motion.a
                 ref={rzBtnRef}
-                href="https://drive.google.com/file/d/1CB87_5yYud-mK2mfXdlFrYPQudzbQdRE/view"
+                href="https://drive.google.com/file/d/1CB87_5yYud-mK2mfXdlFrYPQudzbQdRE/view?usp=sharing"
                 target="_blank"
                 rel="noreferrer"
                 style={{ x: rzSX, y: rzSY }}
