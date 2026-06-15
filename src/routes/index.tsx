@@ -1,20 +1,39 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform, useInView, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useInView,
+  useMotionValue,
+  useSpring,
+  AnimatePresence,
+} from "framer-motion";
 import { Menu, X } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Prince Sharma — Full Stack Developer" },
-      { name: "description", content: "Portfolio of Prince Sharma — full stack developer crafting elegant, high-performance web experiences with React, Node and modern tooling." },
+      {
+        name: "description",
+        content:
+          "Portfolio of Prince Sharma — full stack developer crafting elegant, high-performance web experiences with React, Node and modern tooling.",
+      },
       { property: "og:title", content: "Prince Sharma — Full Stack Developer" },
-      { property: "og:description", content: "Portfolio of Prince Sharma — full stack developer crafting elegant, high-performance web experiences." },
+      {
+        property: "og:description",
+        content:
+          "Portfolio of Prince Sharma — full stack developer crafting elegant, high-performance web experiences.",
+      },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap",
+      },
     ],
   }),
   component: Portfolio,
@@ -75,11 +94,26 @@ const CONTACTS = [
 ];
 
 const MARQUEE_ITEMS = [
-  "C++", "JavaScript", "HTML5", "CSS3",
-  "React.js", "Redux Toolkit", "Tailwind CSS",
-  "Node.js", "Express.js", "Appwrite",
-  "MongoDB", "MySQL", "Git/GitHub", "Postman", "JWT", "REST APIs", "OAuth",
-  "DSA", "OOP", "DBMS"
+  "C++",
+  "JavaScript",
+  "HTML5",
+  "CSS3",
+  "React.js",
+  "Redux Toolkit",
+  "Tailwind CSS",
+  "Node.js",
+  "Express.js",
+  "Appwrite",
+  "MongoDB",
+  "MySQL",
+  "Git/GitHub",
+  "Postman",
+  "JWT",
+  "REST APIs",
+  "OAuth",
+  "DSA",
+  "OOP",
+  "DBMS",
 ];
 
 const NAV_ITEMS = ["About", "Skills", "Projects", "Contact"];
@@ -95,8 +129,8 @@ function Portfolio() {
 
   // Ensure the page always starts at the top when landing/reloading
   useEffect(() => {
-    if ('scrollRestoration' in history) {
-      history.scrollRestoration = 'manual';
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
     }
     window.scrollTo(0, 0);
   }, []);
@@ -107,7 +141,12 @@ function Portfolio() {
   const heroY = useTransform(scrollYProgress, [0, 1], [0, 200]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
-  const TITLES = ["Frontend Developer", "Backend Developer", "Problem Solver", "Full Stack Developer"];
+  const TITLES = [
+    "Frontend Developer",
+    "Backend Developer",
+    "Problem Solver",
+    "Full Stack Developer",
+  ];
   const [titleIndex, setTitleIndex] = useState(0);
   const [nameText, setNameText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
@@ -115,7 +154,7 @@ function Portfolio() {
   useEffect(() => {
     const currentTitle = TITLES[titleIndex];
     let timer: ReturnType<typeof setTimeout>;
-    
+
     if (!isDeleting && nameText === currentTitle) {
       timer = setTimeout(() => setIsDeleting(true), 2000);
     } else if (isDeleting && nameText === "") {
@@ -149,9 +188,7 @@ function Portfolio() {
     btnRef: React.RefObject<HTMLAnchorElement | null>,
     mx: ReturnType<typeof useMotionValue<number>>,
     my: ReturnType<typeof useMotionValue<number>>,
-
   ) => ({
-
     onMouseMove: (e: React.MouseEvent) => {
       if (!btnRef.current) return;
       const rect = btnRef.current.getBoundingClientRect();
@@ -201,7 +238,9 @@ function Portfolio() {
   );
 
   const sectionLabel = (number: string, label: string, center = false) => (
-    <div className={`flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-muted-foreground ${center ? "justify-center" : ""}`}>
+    <div
+      className={`flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-muted-foreground ${center ? "justify-center" : ""}`}
+    >
       <span className="text-primary">{number}</span>
       <span className="w-8 h-px bg-border" />
       <span>{label}</span>
@@ -221,7 +260,7 @@ function Portfolio() {
           <a href="#top" className="font-display font-bold text-xl tracking-tight">
             PRINCE<span className="text-primary">.</span>
           </a>
-          
+
           {/* Desktop Nav */}
           <ul className="hidden md:flex items-center gap-8 font-mono text-xs uppercase tracking-widest">
             {NAV_ITEMS.map((item) => (
@@ -268,7 +307,11 @@ function Portfolio() {
                     onClick={(e) => {
                       e.preventDefault();
                       setIsMobileMenuOpen(false);
-                      setTimeout(() => document.getElementById('top')?.scrollIntoView({ behavior: 'smooth' }), 100);
+                      setTimeout(
+                        () =>
+                          document.getElementById("top")?.scrollIntoView({ behavior: "smooth" }),
+                        100,
+                      );
                     }}
                   >
                     Home
@@ -282,7 +325,13 @@ function Portfolio() {
                       onClick={(e) => {
                         e.preventDefault();
                         setIsMobileMenuOpen(false);
-                        setTimeout(() => document.getElementById(item.toLowerCase())?.scrollIntoView({ behavior: 'smooth' }), 100);
+                        setTimeout(
+                          () =>
+                            document
+                              .getElementById(item.toLowerCase())
+                              ?.scrollIntoView({ behavior: "smooth" }),
+                          100,
+                        );
                       }}
                     >
                       {item}
@@ -296,7 +345,13 @@ function Portfolio() {
                     onClick={(e) => {
                       e.preventDefault();
                       setIsMobileMenuOpen(false);
-                      setTimeout(() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }), 100);
+                      setTimeout(
+                        () =>
+                          document
+                            .getElementById("contact")
+                            ?.scrollIntoView({ behavior: "smooth" }),
+                        100,
+                      );
                     }}
                   >
                     Let's Talk →
@@ -309,12 +364,25 @@ function Portfolio() {
       </motion.nav>
 
       {/* ============ HERO ============ */}
-      <section ref={heroRef} id="top" className="relative min-h-screen pt-32 pb-20 px-6 md:px-12 overflow-hidden">
+      <section
+        ref={heroRef}
+        id="top"
+        className="relative min-h-screen pt-32 pb-20 px-6 md:px-12 overflow-hidden"
+      >
         <div className="absolute -top-20 -left-32 w-[500px] h-[500px] rounded-full bg-primary/30 blur-3xl blob" />
-        <div className="absolute top-1/3 -right-32 w-[450px] h-[450px] rounded-full bg-accent/30 blur-3xl blob" style={{ animationDelay: "-5s" }} />
-        <div className="absolute bottom-0 left-1/3 w-[400px] h-[400px] rounded-full bg-secondary/20 blur-3xl blob" style={{ animationDelay: "-9s" }} />
+        <div
+          className="absolute top-1/3 -right-32 w-[450px] h-[450px] rounded-full bg-accent/30 blur-3xl blob"
+          style={{ animationDelay: "-5s" }}
+        />
+        <div
+          className="absolute bottom-0 left-1/3 w-[400px] h-[400px] rounded-full bg-secondary/20 blur-3xl blob"
+          style={{ animationDelay: "-9s" }}
+        />
 
-        <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative max-w-7xl mx-auto grid lg:grid-cols-12 gap-10 items-center">
+        <motion.div
+          style={{ y: heroY, opacity: heroOpacity }}
+          className="relative max-w-7xl mx-auto grid lg:grid-cols-12 gap-10 items-center"
+        >
           <div className="lg:col-span-7 space-y-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -327,7 +395,9 @@ function Portfolio() {
             </motion.div>
 
             <div>
-              <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-4">Hello, I'm</p>
+              <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-4">
+                Hello, I'm
+              </p>
               <h1 className="font-display font-bold leading-[0.9] tracking-tighter text-[clamp(3rem,10vw,9rem)]">
                 {splitText("PRINCE")}
                 <span className="block text-primary">{splitText("SHARMA.", 0.4)}</span>
@@ -344,7 +414,9 @@ function Portfolio() {
               transition={{ delay: 1, duration: 0.8 }}
               className="max-w-xl text-lg md:text-xl text-muted-foreground leading-relaxed"
             >
-              Full-stack developer crafting <span className="text-foreground font-medium">elegant, high-performance</span> web experiences — from pixel-perfect interfaces to scalable backends.
+              Full-stack developer crafting{" "}
+              <span className="text-foreground font-medium">elegant, high-performance</span> web
+              experiences — from pixel-perfect interfaces to scalable backends.
             </motion.p>
 
             <motion.div
@@ -388,22 +460,34 @@ function Portfolio() {
               <div className="absolute -inset-6 spin-slow opacity-60">
                 <svg viewBox="0 0 200 200" className="w-full h-full">
                   <defs>
-                    <path id="circle" d="M 100, 100 m -90, 0 a 90,90 0 1,1 180,0 a 90,90 0 1,1 -180,0" />
+                    <path
+                      id="circle"
+                      d="M 100, 100 m -90, 0 a 90,90 0 1,1 180,0 a 90,90 0 1,1 -180,0"
+                    />
                   </defs>
                   <text className="fill-foreground font-mono text-[9px] tracking-[0.4em] uppercase">
-                    <textPath href="#circle">FULL STACK · REACT · NODE · DESIGN · BUILD · SHIP · </textPath>
+                    <textPath href="#circle">
+                      FULL STACK · REACT · NODE · DESIGN · BUILD · SHIP ·{" "}
+                    </textPath>
                   </text>
                 </svg>
               </div>
 
               <div className="relative w-full h-full rounded-3xl overflow-hidden border-2 border-primary/40 bg-surface group">
-                <img src="/assets/prince.jpeg" alt="Prince" className="absolute inset-0 w-full h-full object-cover z-10" />
+                <img
+                  src="/assets/prince.jpeg"
+                  alt="Prince"
+                  className="absolute inset-0 w-full h-full object-cover z-10"
+                />
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-accent/20 z-20 mix-blend-overlay" />
-                
-                <div className="absolute top-4 left-4 font-mono text-[10px] uppercase tracking-widest text-foreground/80 z-20 bg-background/50 backdrop-blur px-2 py-1 rounded">● REC</div>
-                <div className="absolute bottom-4 right-4 font-mono text-[10px] uppercase tracking-widest text-foreground/80 z-20 bg-background/50 backdrop-blur px-2 py-1 rounded">26°N · IND</div>
-              </div>
 
+                <div className="absolute top-4 left-4 font-mono text-[10px] uppercase tracking-widest text-foreground/80 z-20 bg-background/50 backdrop-blur px-2 py-1 rounded">
+                  ● REC
+                </div>
+                <div className="absolute bottom-4 right-4 font-mono text-[10px] uppercase tracking-widest text-foreground/80 z-20 bg-background/50 backdrop-blur px-2 py-1 rounded">
+                  26°N · IND
+                </div>
+              </div>
             </div>
           </motion.div>
         </motion.div>
@@ -415,7 +499,11 @@ function Portfolio() {
           className="absolute bottom-8 left-1/2 -translate-x-1/2 font-mono text-[10px] uppercase tracking-widest text-muted-foreground flex flex-col items-center gap-2"
         >
           Scroll
-          <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 1.5, repeat: Infinity }} className="w-px h-8 bg-foreground/40" />
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+            className="w-px h-8 bg-foreground/40"
+          />
         </motion.div>
       </section>
 
@@ -423,7 +511,10 @@ function Portfolio() {
       <section className="border-y border-border bg-surface/30 py-6 overflow-hidden">
         <div className="flex marquee-track gap-12 whitespace-nowrap">
           {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, i) => (
-            <div key={i} className="flex items-center gap-12 font-display font-bold text-3xl md:text-5xl tracking-tight">
+            <div
+              key={i}
+              className="flex items-center gap-12 font-display font-bold text-3xl md:text-5xl tracking-tight"
+            >
               <span className={i % 2 === 0 ? "text-foreground" : "text-stroke"}>{item}</span>
               <span className="text-primary text-2xl">✦</span>
             </div>
@@ -442,7 +533,8 @@ function Portfolio() {
               transition={{ duration: 0.8 }}
               className="font-display font-bold text-4xl md:text-6xl leading-tight tracking-tight"
             >
-              I build <span className="text-primary italic">elegant</span> products that solve real problems — fast, accessible, and built to scale.
+              I build <span className="text-primary italic">elegant</span> products that solve real
+              problems — fast, accessible, and built to scale.
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -450,7 +542,11 @@ function Portfolio() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-lg text-muted-foreground leading-relaxed max-w-2xl"
             >
-              I'm an Information Technology undergraduate at JSS Academy of Technical Education, passionate about building full-stack web applications. With a strong foundation in Data Structures, Algorithms, and the MERN stack, I focus on engineering secure, scalable solutions with elegant designs. When I'm not developing, I'm actively solving competitive programming problems on platforms like LeetCode.
+              I'm an Information Technology undergraduate at JSS Academy of Technical Education,
+              passionate about building full-stack web applications. With a strong foundation in
+              Data Structures, Algorithms, and the MERN stack, I focus on engineering secure,
+              scalable solutions with elegant designs. When I'm not developing, I'm actively solving
+              competitive programming problems on platforms like LeetCode.
             </motion.p>
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6 pt-8 border-t border-border">
@@ -462,7 +558,9 @@ function Portfolio() {
                   transition={{ delay: 0.4 + i * 0.1 }}
                 >
                   <div className="font-display font-bold text-4xl text-primary">{s.num}</div>
-                  <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mt-1">{s.label}</div>
+                  <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mt-1">
+                    {s.label}
+                  </div>
                 </motion.div>
               ))}
             </div>
@@ -471,7 +569,11 @@ function Portfolio() {
       </section>
 
       {/* ============ SKILLS ============ */}
-      <section id="skills" ref={skillsRef} className="relative px-6 md:px-12 py-32 bg-surface/40 border-y border-border">
+      <section
+        id="skills"
+        ref={skillsRef}
+        className="relative px-6 md:px-12 py-32 bg-surface/40 border-y border-border"
+      >
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-12 gap-12 mb-16">
             <div className="lg:col-span-4">{sectionLabel("02", "Skills")}</div>
@@ -498,7 +600,9 @@ function Portfolio() {
               >
                 <div className="flex items-baseline justify-between mb-3">
                   <h3 className="font-display font-bold text-base md:text-lg">{skill.name}</h3>
-                  <span className="font-mono text-[10px] text-muted-foreground">{skill.level}%</span>
+                  <span className="font-mono text-[10px] text-muted-foreground">
+                    {skill.level}%
+                  </span>
                 </div>
                 <div className="h-1 bg-muted rounded-full overflow-hidden">
                   <motion.div
@@ -557,13 +661,21 @@ function Portfolio() {
                     <p className="text-muted-foreground max-w-lg">{p.desc}</p>
                     <div className="flex flex-wrap gap-2 pt-2">
                       {p.tech.map((t) => (
-                        <span key={t} className={`px-3 py-1 rounded-full border text-xs font-mono ${t === "Coming Soon" ? "bg-primary text-primary-foreground border-primary animate-pulse font-bold" : "border-border"}`}>{t}</span>
+                        <span
+                          key={t}
+                          className={`px-3 py-1 rounded-full border text-xs font-mono ${t === "Coming Soon" ? "bg-primary text-primary-foreground border-primary animate-pulse font-bold" : "border-border"}`}
+                        >
+                          {t}
+                        </span>
                       ))}
                     </div>
                   </div>
                   <div className="md:col-span-4 flex md:justify-end">
                     <motion.div
-                      animate={{ rotate: hoveredProject === i ? -45 : 0, scale: hoveredProject === i ? 1.1 : 1 }}
+                      animate={{
+                        rotate: hoveredProject === i ? -45 : 0,
+                        scale: hoveredProject === i ? 1.1 : 1,
+                      }}
                       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                       className="w-16 h-16 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-2xl"
                     >
@@ -579,7 +691,11 @@ function Portfolio() {
       </section>
 
       {/* ============ CONTACT ============ */}
-      <section id="contact" ref={contactRef} className="relative px-6 md:px-12 py-32 bg-surface/40 border-t border-border overflow-hidden">
+      <section
+        id="contact"
+        ref={contactRef}
+        className="relative px-6 md:px-12 py-32 bg-surface/40 border-t border-border overflow-hidden"
+      >
         <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full bg-primary/10 blur-3xl" />
 
         <div className="relative max-w-7xl mx-auto text-center">
@@ -600,7 +716,8 @@ function Portfolio() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="mt-6 text-lg text-muted-foreground max-w-xl mx-auto"
           >
-            I'm currently open for new opportunities. Got a project, a question, or just want to say hi? Pick your channel.
+            I'm currently open for new opportunities. Got a project, a question, or just want to say
+            hi? Pick your channel.
           </motion.p>
 
           <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
@@ -616,7 +733,9 @@ function Portfolio() {
                 className="group relative p-6 rounded-2xl border border-border bg-card hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all"
               >
                 <div className="font-display font-bold text-xl">{c.name}</div>
-                <div className="mt-2 font-mono text-xs uppercase tracking-widest opacity-60 group-hover:opacity-100">→ Reach out</div>
+                <div className="mt-2 font-mono text-xs uppercase tracking-widest opacity-60 group-hover:opacity-100">
+                  → Reach out
+                </div>
               </motion.a>
             ))}
           </div>
@@ -628,7 +747,9 @@ function Portfolio() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 font-mono text-xs uppercase tracking-widest text-muted-foreground">
           <div>© {new Date().getFullYear()} Prince Sharma</div>
           <div>Designed & built with React</div>
-          <a href="#top" className="hover:text-primary transition">Back to top ↑</a>
+          <a href="#top" className="hover:text-primary transition">
+            Back to top ↑
+          </a>
         </div>
       </footer>
     </div>
